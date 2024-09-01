@@ -29,6 +29,19 @@ impl Simplex {
         Simplex { n, m, a, c, b, basic, non_basic, x, z }
     }
 
+    fn print(&self) {
+        for i in 0..self.m {
+            for j in 0..self.n {
+                print!("{:.2} ", self.a[i][j]);
+            }
+            println!(" | {:.2}", self.b[i]);
+        }
+        for j in 0..self.n {
+            print!("{:.2} ", self.c[j]);
+        }
+        println!(" | {:.2}", self.z);
+    }
+
     fn pivot(&mut self, l: usize, e: usize) {
         let mut a = vec![vec![0.0; self.n]; self.m];
         let mut b = vec![0.0; self.m];
@@ -72,8 +85,17 @@ impl Simplex {
 }
 
 
-    fn main() {
-    println!("Hello, world!");
+fn main() {
+    let n = 3;
+    let m = 2;
+    let a = vec![vec![1.0, 1.0, 1.0], vec![2.0, 1.0, 0.0]];
+    let c = vec![1.0, 1.0, 0.0];
+    let b = vec![3.0, 2.0];
+    let mut simplex = Simplex::new(n, m, a, c, b);
+    simplex.print();
+    simplex.pivot(0, 0);
+    simplex.print();
+
 }
 
 
